@@ -51,6 +51,7 @@ void		ft_ctrlc(int sig);
 void					msh_execute(char **args, t_node **envp);
 //get_command i.e (echo, exit, pwd ..)
 //exec_command
+int        exec(char **args, t_node **head);
 //builtins
 void    			msh_echo(char **args, t_node **envp);
 void    			ft_setenv(t_node **head, char **args);

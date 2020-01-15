@@ -6,7 +6,7 @@
 #    By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/23 20:13:16 by oelazzou          #+#    #+#              #
-#    Updated: 2020/01/13 13:19:39 by oelazzou         ###   ########.fr        #
+#    Updated: 2020/01/15 15:56:52 by oelazzou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_NAME = 	builtins.c \
 			env.c \
 			error.c \
 			execute.c \
+			exec.c \
 			ft_putstr_color.c \
 			is_exist.c \
 			main.c \

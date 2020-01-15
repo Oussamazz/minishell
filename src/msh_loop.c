@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:52:44 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/14 17:22:42 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/15 21:29:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_loop(char **str)
 		i = 0;
 		while (str[i] != NULL)
 		{
-			free(str[i]);
+			ft_strdel(&str[i]);
 			i++;
 		}
 		free(str);
@@ -92,8 +92,6 @@ void    msh_loop(t_node **envp)
 			return ;
 		split.arr = parse_command(&split.line, envp);
 		execute(&split, envp);
-		if (ft_strcmp(split.line, "clear") == 0)
-			clear_screen();
 		free_loop(split.arr);
 		ft_strdel(&split.line);
         ft_strdel(&tmp);

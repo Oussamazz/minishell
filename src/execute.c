@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 10:17:19 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/14 15:55:42 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/15 21:31:23 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		msh_execute(char **args, t_node **envp)
 {
     if (args[0] == NULL || !args[0][0])
         return ;
-	if (!ft_strncmp(args[0], "echo", 4))
+	if (!ft_strcmp(args[0], "echo"))
 		msh_echo(args, envp);
 	else if (!ft_strcmp(args[0], "setenv"))
 		ft_setenv(envp, args);
@@ -71,7 +71,11 @@ void		msh_execute(char **args, t_node **envp)
 	else if (!ft_strcmp(args[0], "env"))
 		ft_setenv(envp, args);
 	else if (!ft_strcmp(args[0], "exit"))
-		exit(0);
+		exit(EXIT_SUCCESS);
 	else if (!ft_strcmp(args[0], "cd"))
 		ft_cd(args, envp);
+	else if (ft_strcmp(args[0], "clear") == 0)
+			clear_screen();
+    else
+		exec(args, envp);
 }
