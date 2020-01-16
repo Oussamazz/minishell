@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:53:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/14 18:09:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/16 20:47:48 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ char	*get_cwd(t_node ** head)
 {
 	char *buff;
 
-	buff = ft_strnew(256);
+	buff = NULL;
+	buff = ft_strnew(PATH_MAX);
 	if (!buff)
 		return (NULL);
-	buff = getcwd(buff, 256);
+	buff = getcwd(buff, PATH_MAX);
 	return (buff);
 }
 

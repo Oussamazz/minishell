@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:52:44 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/15 21:29:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/17 00:22:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ void	free_loop(char **str)
 		}
 		free(str);
 	}
-}
-
-void		ft_ctrlc(int sig)
-{
-	ft_putstr_color("\n$>", "\e[1;32m");
-	reg = sig;
 }
 
 char		**parse_command(char **line, t_node **env)
@@ -74,6 +68,17 @@ void	print_promt(char *cwd)
         ft_putstr_color(" » ", "\033[1;32m");
 }
 
+void		ft_ctrlc(int sig)
+{
+	char buf[PATH_MAX + 1];
+
+	wait(NULL);
+	ft_putchar('\n');
+	if (reg != 1)
+		print_promt(getcwd(buf, sizeof(buf)));
+	reg = -1;
+}
+
 void    msh_loop(t_node **envp)
 {
 	t_split split;
@@ -81,20 +86,24 @@ void    msh_loop(t_node **envp)
 
 	ft_memset(&split, 0, sizeof(split));
 	split.status = 1;
-	//signal(SIGINT, ft_ctrlc);
+	signal(SIGINT, ft_ctrlc);
 	split.arr = NULL;
 	split.line = NULL;
-	while (split.status)
+	while (1337)
 	{
         tmp = get_cwd(envp);
-		print_promt(tmp);
-		if (get_next_line(1, &split.line) == -1)
+        reg = 0;
+		if (reg == 0)
+			print_promt(tmp);
+		if ((split.status = get_next_line(1, &split.line)) == -1)
 			return ;
+		if (split.status == 0)
+			return (ft_treeputstr(2, "\nStopped: Line reached EOF!\n","", ""));
 		split.arr = parse_command(&split.line, envp);
+		reg = 1;
 		execute(&split, envp);
+        free(tmp);
 		free_loop(split.arr);
 		ft_strdel(&split.line);
-        ft_strdel(&tmp);
-		split.status = 1;
 	}
 }

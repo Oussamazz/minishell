@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 19:29:32 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/14 17:31:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:56:28 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static char	*get_envstr(t_node **head, char **args, int *tablen)
 		return (error_msg("Too many arguments.\n", 2, NULL));
     if (!ft_isalpha(args[1][0]))
         return (error_msg("setenv: Variable name must begin with a letter.\n", 2, NULL));
+	if (!check_str(args[1]))
+		return (error_msg("setenv: Variable name must contain alphanumeric characters.\n", 2, NULL));
 	name = ft_strcat(args[1], "=");
 	if (args[2] != NULL)
 	{

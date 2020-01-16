@@ -12,6 +12,7 @@
 #include <limits.h>
 # include <string.h>
 # include <signal.h>
+#include "error.h"
 # define NO_ZERO(x) x == 0 ? 1 : x
 # define DELIM "\t\n "
 # define QUOTES "\'\""
@@ -88,4 +89,5 @@ void	            gen_oldpwd(char *cwd, t_node **head);
 char	            *env_var_rep(t_node **head, char *str);
 char                **to_arr(t_node **head);
 void                gen_pwd(char *new_path, t_node **head);
+int					check_str(char *str);
 #endif

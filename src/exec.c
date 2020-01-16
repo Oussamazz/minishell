@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:51:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/16 15:57:36 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/17 00:39:19 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,29 @@ static void		execute_direct(char *path, char **args, char **env)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (access(path, X_OK) == 0)
+		if (access(path, F_OK) == 0)
 		{
-			if (execve(path, args, env) == -1)
-				ft_putendl_fd("minishel : execution Failed!", 2);
+			if (access(path, X_OK) == 0)
+			{
+				if (execve(path, args, env) == -1)
+					ft_putendl_fd("minishel : execution Failed!", 2);
+				exit(0);
+			}
+			else
+				ft_treeputstr(2, "minishell: permission denied: ", args[0], "\n");
 			exit(0);
 		}
 		else
-			ft_treeputstr(2, "minishell: permission denied: ", args[0], "\n");
+			ft_treeputstr(2, "minishell: Command not found: ", args[0], "\n");
 		exit(0);
 	}
 	else if (pid < 0)
 		ft_putendl("minishell : Error forking.");
 	else
 		wait(NULL);
-	return ;
 }
 
-static char	*ft_ret_freetab(char *str, char **tab)
+char			*ft_ret_freetab(char *str, char **tab)
 {
 	free_loop(tab);
 	return (str);
@@ -50,9 +55,9 @@ static char		*find_right_path(char **args, t_node **head)
 	char	*abs_path;
 
 	split_path = NULL;
-	if (!(path_env = find_env("PATH", head)) || !(split_path = ft_strsplit(path_env, ':')))
-		return (0);
-	ft_strdel(&path_env);
+	path_env = find_env("PATH", head);
+	if (!(split_path = ft_strsplit(path_env, ':')))
+		return (ft_strdup(args[0]));
 	i = 0;
 	while (split_path[i] != NULL)
 	{
@@ -61,7 +66,7 @@ static char		*find_right_path(char **args, t_node **head)
 		if (args[0][0] != '.' && args[0][0] != 47)
 		{
 			if (access(abs_path, F_OK) == 0)
-				return (ft_ret_freetab(abs_path, split_path));	
+				return (ft_ret_freetab(abs_path, split_path));
 		}
 		else if (access(args[0], F_OK) == 0)
 			return (ft_ret_freetab(ft_strdup(args[0]), split_path)); 
@@ -74,12 +79,25 @@ void	exec(char **args, t_node **head)
 {
 	char *right_path;
 	char **env;
+	char	*tmp;
 
-	if (!(right_path = find_right_path(args, head)))
+	right_path = NULL;
+	tmp = NULL;
+	if (args[0][0] == '$')
+	{
+		if (!(tmp = find_env(&args[0][1], head)))
+			return (ft_treeputstr(2, &args[0][1], ": Undefined variable.", "\n"));
+		right_path = find_right_path(&tmp, head);
+	}
+	else if (!(right_path = find_right_path(args, head)))
 		return (ft_treeputstr(2, "minishell: Command not found: ", args[0], "\n"));
-	if (!(env = to_arr(head)))
-		return ;
-	execute_direct(right_path, args, env);
-	free_loop(env);
-	ft_strdel(&right_path);
+	env = to_arr(head);
+	if (env)
+	{
+		execute_direct(right_path, args, env);
+		ft_strdel(&right_path);
+		if (tmp)
+			ft_strdel(&tmp);
+		free_loop(env);
+	}
 }
