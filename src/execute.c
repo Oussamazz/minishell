@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 10:17:19 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/15 21:31:23 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:30:15 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void		execute(t_split *split, t_node **envp)
 		}
 	}
 }
-
-
 
 void		msh_execute(char **args, t_node **envp)
 {
