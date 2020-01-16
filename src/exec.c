@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:51:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/16 15:21:06 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:57:36 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ static void		execute_direct(char *path, char **args, char **env)
 	return ;
 }
 
+static char	*ft_ret_freetab(char *str, char **tab)
+{
+	free_loop(tab);
+	return (str);
+}
+
 static char		*find_right_path(char **args, t_node **head)
 {
 	int		i;
@@ -46,6 +52,7 @@ static char		*find_right_path(char **args, t_node **head)
 	split_path = NULL;
 	if (!(path_env = find_env("PATH", head)) || !(split_path = ft_strsplit(path_env, ':')))
 		return (0);
+	ft_strdel(&path_env);
 	i = 0;
 	while (split_path[i] != NULL)
 	{
@@ -54,10 +61,10 @@ static char		*find_right_path(char **args, t_node **head)
 		if (args[0][0] != '.' && args[0][0] != 47)
 		{
 			if (access(abs_path, F_OK) == 0)
-				return (ft_strdup(abs_path));	
+				return (ft_ret_freetab(abs_path, split_path));	
 		}
 		else if (access(args[0], F_OK) == 0)
-			return (ft_strdup(args[0]));
+			return (ft_ret_freetab(ft_strdup(args[0]), split_path)); 
 		i++;
 	}
 	return (NULL);
@@ -68,7 +75,6 @@ void	exec(char **args, t_node **head)
 	char *right_path;
 	char **env;
 
-	right_path = NULL;
 	if (!(right_path = find_right_path(args, head)))
 		return (ft_treeputstr(2, "minishell: Command not found: ", args[0], "\n"));
 	if (!(env = to_arr(head)))
