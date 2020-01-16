@@ -7,6 +7,6 @@ The objective of this project is for you to create the simplest start of a shell
 2. cd minishell_1337
 3. make
 4. ./minishell
-5. To Exit from the program just type exit.
+5. To Exit from the program, just type exit.
 
 >ENJOY
