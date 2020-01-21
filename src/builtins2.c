@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 19:51:42 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 17:08:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:02:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		cd_smp(char *cwd, char *path, char *new_dir, t_node **head)
 	{
 		gen_oldpwd(cwd, head);
 		chdir(new_dir);
-		gen_pwd((tmp = get_cwd(head)), head);
+		gen_pwd((tmp = get_cwd()), head);
 		ft_strdel(&tmp);
 	}
 	else
@@ -40,7 +40,7 @@ static void		cd_simple(char *path, t_node **head)
 	char *cwd;
 
 	new_dir = NULL;
-	if ((cwd = get_cwd(head)))
+	if ((cwd = get_cwd()))
 	{
 		ft_strcat(cwd, "/");
 		new_dir = ft_strjoin(cwd, path);
@@ -72,9 +72,9 @@ void			cd_root(char *new_dir, t_node **head)
 			return (ft_treeputstr(2, "cd: not a directory: ", new_dir, "\n"));
 		if (access(new_dir, X_OK) == 0)
 		{
-			gen_oldpwd((tmp = get_cwd(head)), head);
+			gen_oldpwd((tmp = get_cwd()), head);
 			chdir(new_dir);
-			gen_pwd((tmp2 = get_cwd(head)), head);
+			gen_pwd((tmp2 = get_cwd()), head);
 			ft_treestrdel(&tmp, &tmp2, NULL);
 		}
 		else

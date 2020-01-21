@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:51:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 17:23:51 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:12:15 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void			exec(char **args, t_node **head)
 
 	right_path = NULL;
 	tmp = NULL;
-	if (args[0][0] == '$')
+	if (args[0][0] == '$' && args[0][1] != '\0')
 	{
 		if (!(tmp = find_env(&args[0][1], head)))
 			return (ft_treeputstr(2, &args[0][1],

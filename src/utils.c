@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:53:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 18:01:08 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:02:02 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			gen_oldpwd(char *cwd, t_node **head)
 	ft_strdel(&str);
 }
 
-char			*get_cwd(t_node **head)
+char			*get_cwd(void)
 {
 	char	tmp[PATH_MAX + 1];
 	char	*buff;

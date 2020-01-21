@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 18:03:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 18:23:15 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/20 15:59:01 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int					is_str_exist(t_node **head, char *str);
 int					tablen(char **arr);
 void				free_loop(char **str);
 void				check_git(char *path);
-char				*get_cwd(t_node **head);
+char				*get_cwd(void);
 void				cd_home(char *path, t_node **head);
 void				cd_user(char *new_dir, t_node **head);
 void				cd_root(char *new_dir, t_node **head);

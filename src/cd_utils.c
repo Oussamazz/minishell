@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:17:43 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 17:32:25 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:02:31 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			cd_user(char *new_dir, t_node **head)
 		}
 		if (access(new_dir, X_OK) == 0)
 		{
-			tmp = get_cwd(head);
+			tmp = get_cwd();
 			gen_oldpwd(tmp, head);
 			chdir(new_dir);
 			ft_strdel(&tmp);

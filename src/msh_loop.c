@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:52:44 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 17:50:33 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:12:16 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char		**parse_command(char **line, t_node **env)
 
 	str = NULL;
 	arr = NULL;
+	if (*env == NULL)
+		push(env, "");
 	tmp = *line;
 	(*env)->flag = false;
 	if (line != NULL && (ft_is_there(tmp, '\'') || ft_is_there(tmp, '\"')))
@@ -91,17 +93,17 @@ void		msh_loop(t_node **envp)
 	split.line = NULL;
 	while (split.status > 0)
 	{
-		tmp = get_cwd(envp);
+		tmp = get_cwd();
 		g_reg = 0;
 		if (g_reg == 0)
 			print_promt(tmp);
+		free(tmp);
 		if ((split.status = get_next_line(1, &split.line)) == -1)
 			return ;
 		if (split.status == 0)
 			return (ft_treeputstr(2, "\nStopped: Line reached EOF!\n", "", ""));
 		split.arr = parse_command(&split.line, envp);
 		g_reg = 1;
-		free(tmp);
 		execute(&split, envp);
 		free_loop(split.arr);
 		ft_strdel(&split.line);

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 20:51:46 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 17:28:17 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:11:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		check_str(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (!ft_isalnum(str[i]))
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
 		i++;
 	}

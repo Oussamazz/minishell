@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 19:29:32 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 18:13:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:17:48 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char		*env_var_rep(t_node **head, char *str)
 	if (!(env = find_env(str, head)))
 	{
 		ft_putstr_fd(str, 2);
-		ft_putendl_fd(" Undefined variable.", 2);
+		ft_putendl_fd(": Undefined variable.", 2);
 		return (NULL);
 	}
 	return (env);
@@ -101,22 +101,9 @@ void		ft_setenv(t_node **head, char **args)
 void		ft_unsetenv(t_node **head, char **str, int len)
 {
 	int		i;
-	size_t	len_data;
-	t_node	*tmp;
 
-	tmp = *head;
-	i = 1;
-	while (i < len)
-	{
-		while (tmp != NULL)
-		{
-			len_data = ft_strlen_char(tmp->data, '=');
-			if (len_data != 0 && !ft_strncmp(tmp->data, str[i], len_data))
-				delete_node(head, str[i]);
-			tmp = tmp->next;
-		}
-		tmp = *head;
-		i++;
-	}
+	i = 0;
+	while (++i < len)
+		delete_node(head, str[i]);
 	return ;
 }

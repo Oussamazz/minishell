@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 17:01:32 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 17:03:54 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:23:02 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char		*find_env(char *str, t_node **envp)
 			if (!ft_strncmp(str, cur->data, ft_strlen_char(cur->data, '='))
 				&& ft_strlen_char(str, '$') == ft_strlen_char(cur->data, '='))
 			{
-				tmp = ft_strchr(cur->data, '=') + 1;
+				if (!(tmp = ft_strchr(cur->data, '=') + 1) || tmp[0] == '\0')
+					return (NULL);
 				return (ft_strdup(tmp));
 			}
 			cur = cur->next;

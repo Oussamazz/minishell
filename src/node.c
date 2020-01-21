@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 15:06:34 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/01/18 17:54:26 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/01/20 20:31:22 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		delete_node(t_node **head, char *str)
 		ft_strlen_char(temp->data, '=')))
 	{
 		*head = temp->next;
-		free(temp->data);
+		ft_strdel(&(temp->data));
 		free(temp);
 		return ;
 	}
